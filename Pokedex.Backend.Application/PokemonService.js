@@ -3,7 +3,7 @@ import {TypeOneSearchRepository, TypeTwoSearchRepository} from '../Pokedex.Backe
 import Pokemon from '../Pokedex.Backend.Domain/Pokemon.js'
 
 export async function GetPokemonsService(){
-    var result = await GetPokemonsRepository();
+    const result = await GetPokemonsRepository();
 
     if(Object.keys(result).length === 0){
         return{
@@ -20,7 +20,7 @@ export async function GetPokemonsService(){
 
 export async function GetPokemonByIdService(id){
 
-    var result = await GetPokemonByIdRepository(id);
+    const result = await GetPokemonByIdRepository(id);
     
     if(Object.keys(result).length === 0){
         return{
@@ -39,25 +39,25 @@ export async function GetPokemonByIdService(id){
 * @param {Pokemon} pokemon pokemonParameter
 */
 export async function AddPokemonService(pokemon){
-
-    var verifyPokemonData = await VerifyPokemonData(pokemon);
-    if(verifyPokemonData.status == 400){
+    
+    const verifyPokemonData = await VerifyPokemonData(pokemon);
+    if(verifyPokemonData.status === 400){
         return{
             status : verifyPokemonData.status,
             data : verifyPokemonData.data
         }
     }
 
-    var verifyExistingType = await VerifyExistingType(pokemon.type, pokemon.typetwo)
-    if(verifyExistingType.status == 400){
+    const verifyExistingType = await VerifyExistingType(pokemon.type, pokemon.typetwo)
+    if(verifyExistingType.status === 400){
         return{
             status : verifyExistingType.status,
             data : verifyExistingType.data
         }
     }
     
-    var result = await AddPokemonRepository(pokemon);
-    if(result){
+    const result = await AddPokemonRepository(pokemon);
+    if(result === 1){
         return {
             status : 200,
             data:"Pokemon adicionado com sucesso",
@@ -75,7 +75,7 @@ export async function AddPokemonService(pokemon){
  */
 export async function UpdatePokemonService(pokemon){
 
-    var verifyPokemon = await GetPokemonByIdRepository(pokemon.id);
+    const verifyPokemon = await GetPokemonByIdRepository(pokemon.id);
 
     if(Object.keys(verifyPokemon).length === 0){
         return{
@@ -84,24 +84,24 @@ export async function UpdatePokemonService(pokemon){
         }
     }
     
-    var verifyPokemonData = await VerifyPokemonData(pokemon);
-    if(verifyPokemonData.status == 400){
+    const verifyPokemonData = await VerifyPokemonData(pokemon);
+    if(verifyPokemonData.status === 400){
         return{
             status : verifyPokemonData.status,
             data : verifyPokemonData.data
         }
     }
 
-    var verifyExistingType = await VerifyExistingType(pokemon.type, pokemon.typetwo)
-    if(verifyExistingType.status == 400){
+    const verifyExistingType = await VerifyExistingType(pokemon.type, pokemon.typetwo)
+    if(verifyExistingType.status === 400){
         return{
             status : verifyExistingType.status,
             message : verifyExistingType.data
         }
     }
 
-    var result = await UpdatePokemonRepository(pokemon);
-    if(result){
+    const result = await UpdatePokemonRepository(pokemon);
+    if(result === 1){
         return {
             status : 200,
             data:"Pokemon atualizado com sucesso",
@@ -116,8 +116,8 @@ export async function UpdatePokemonService(pokemon){
 
 async function VerifyExistingType(typeOne, typeTwo){
 
-    var typeOneSearch = await TypeOneSearchRepository(typeOne);
-    var typeTwoSearch = await TypeTwoSearchRepository(typeTwo);
+    const typeOneSearch = await TypeOneSearchRepository(typeOne);
+    const typeTwoSearch = await TypeTwoSearchRepository(typeTwo);
 
     if(Object.keys(typeOneSearch).length === 0){
         return{
@@ -132,7 +132,7 @@ async function VerifyExistingType(typeOne, typeTwo){
             data:"Por favor insira um tipo secundário existente"
         }
     }
-    return
+    return 200
 }
 
 /**
@@ -187,5 +187,5 @@ async function VerifyPokemonData(pokemon){
             data: "Por favor, insira um tipo válido."
         };
     }
-    return
+    return 200
 }

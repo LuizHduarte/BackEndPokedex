@@ -35,3 +35,19 @@ export async function TypeTwoSearchRepository(type){
    return error
   }
 }
+
+
+export async function AddTypeRepository(type){
+  try {
+    client.connect(function (err) {
+      if (err) {
+        return err;
+      }
+    });
+    const result = await client.query(`INSERT INTO typeone (type) values ('${type}');
+    INSERT INTO typetwo (typetwo) values ('${type}')`)
+    return result[0].rowCount;
+  } catch (error) {
+   return error
+  }
+}

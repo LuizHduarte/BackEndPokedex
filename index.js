@@ -6,6 +6,7 @@ import {port} from "./config.js";
 
 import {GetPokemonByIdService, GetPokemonsService, AddPokemonService, UpdatePokemonService} from './Pokedex.Backend.Application/PokemonService.js'
 import Pokemon from './Pokedex.Backend.Domain/Pokemon.js'
+import { AddTypeService } from "./Pokedex.Backend.Application/TypeService.js";
 
 
 const app = express();
@@ -56,6 +57,11 @@ app.put("/pokemon/:id", async (req, res) => {
   );
   const response = await UpdatePokemonService(pokemon);
   
+  res.status(response.status).send(response.data);
+});
+
+app.post("/type", async (req, res) => {
+  const response = await AddTypeService(req.body.type);
   res.status(response.status).send(response.data);
 });
 
