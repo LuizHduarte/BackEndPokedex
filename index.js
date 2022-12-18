@@ -73,5 +73,3 @@ app.post("/type", async (req, res) => {
 app.listen(port, () =>
   console.log("Servidor funcionando na porta " + port)
 );
-
-export default app
