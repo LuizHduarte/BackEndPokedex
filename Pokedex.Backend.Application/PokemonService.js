@@ -1,4 +1,4 @@
-import { GetPokemonsRepository, GetPokemonByIdRepository, AddPokemonRepository, UpdatePokemonRepository} from '../Pokedex.Backend.Infra.Data/PokemonRepository.js'
+import { GetPokemonsRepository, GetPokemonByIdRepository, AddPokemonRepository, UpdatePokemonRepository, GetAllPokemonsByTypeRepository} from '../Pokedex.Backend.Infra.Data/PokemonRepository.js'
 import {TypeOneSearchRepository, TypeTwoSearchRepository} from '../Pokedex.Backend.Infra.Data/TypeRepository.js'
 import Pokemon from '../Pokedex.Backend.Domain/Pokemon.js'
 
@@ -33,6 +33,23 @@ export async function GetPokemonByIdService(id){
         status:200,
         data: result
     };
+}
+
+export async function GetAllPokemonsByTypeService(type){
+    const result = await GetAllPokemonsByTypeRepository(type);
+
+    if(Object.keys(result).length === 0){
+        return{
+            status:404,
+            data:"Pokemon não encontrado"
+        }
+    }
+
+    return {
+        status:200,
+        data: result
+    };
+
 }
 
 /**

@@ -4,7 +4,7 @@ import cors from "cors";
 import bodyparser from "body-parser";
 import {port} from "./config.js";
 
-import {GetPokemonByIdService, GetPokemonsService, AddPokemonService, UpdatePokemonService} from './Pokedex.Backend.Application/PokemonService.js'
+import {GetPokemonByIdService, GetPokemonsService, AddPokemonService, UpdatePokemonService, GetAllPokemonsByTypeService} from './Pokedex.Backend.Application/PokemonService.js'
 import Pokemon from './Pokedex.Backend.Domain/Pokemon.js'
 import { AddTypeService } from "./Pokedex.Backend.Application/TypeService.js";
 
@@ -60,12 +60,18 @@ app.put("/pokemon/:id", async (req, res) => {
   res.status(response.status).send(response.data);
 });
 
+app.get("/pokemon/:type", async (req, res) => {
+  const response = await GetAllPokemonsByTypeService(req.params.type);
+  res.status(response.status).send(response.data);
+});
+
 app.post("/type", async (req, res) => {
   const response = await AddTypeService(req.body.type);
   res.status(response.status).send(response.data);
 });
 
-
 app.listen(port, () =>
   console.log("Servidor funcionando na porta " + port)
 );
+
+export default app

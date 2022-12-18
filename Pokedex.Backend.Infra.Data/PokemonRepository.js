@@ -29,6 +29,25 @@ export async function GetPokemonsRepository(){
   }
 }
 
+export async function GetAllPokemonsByTypeRepository(type){
+  try {
+    client.connect(function (err) {
+      if (err) {
+        return err;
+      }
+    });
+    const result = await client.query(`SELECT u.id, u.name, u.description, u.height, u.weight, u.ability, u.spriteone, u.spritetwo, c.type, d.typetwo
+    FROM pokemon u 
+    JOIN typeone c ON u.typeone_id = c.id
+    JOIN typetwo d ON u.typetwo_id = d.id
+    WHERE c.type = '${type}' or d.typetwo = '${type}'
+    order by u.id`)
+    return result.rows;
+  } catch (error) {
+   return error
+  } 
+}
+
 
 export async function GetPokemonByIdRepository(id){
   try {
