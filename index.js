@@ -63,7 +63,7 @@ app.put("/pokemon/:id", async (req, res) => {
   res.status(response.status).send(response.data);
 });
 
-app.get("/pokemon/:type", async (req, res) => {
+app.get("/type/:type", async (req, res) => {
   const response = await GetAllPokemonsByTypeService(req.params.type);
   res.status(response.status).send(response.data);
 });
