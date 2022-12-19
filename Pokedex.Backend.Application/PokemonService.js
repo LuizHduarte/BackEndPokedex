@@ -74,7 +74,8 @@ export async function AddPokemonService(pokemon){
     }
     
     const result = await AddPokemonRepository(pokemon);
-    if(result === 1){
+    console.log(result)
+    if(result.rowCount === 1){
         return {
             status : 200,
             data:"Pokemon adicionado com sucesso",
@@ -118,7 +119,7 @@ export async function UpdatePokemonService(pokemon){
     }
 
     const result = await UpdatePokemonRepository(pokemon);
-    if(result === 1){
+    if(result.rowCount === 1){
         return {
             status : 200,
             data:"Pokemon atualizado com sucesso",

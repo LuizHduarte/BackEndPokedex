@@ -14,6 +14,7 @@ export async function TypeOneSearchRepository(type){
       }
     });
     const result = await client.query(`SELECT type FROM TypeOne where type = '${type}'`)
+    console.log(result)
     return result.rows;
 
   } catch (error) {

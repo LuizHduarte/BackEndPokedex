@@ -11,7 +11,7 @@ export async function AddTypeService(type){
     }
     
     const result = await AddTypeRepository(type);
-    if(result === 1){
+    if(result.rowCount === 1){
          return {
             status : 200,
             data:"Tipo adicionado com sucesso",
