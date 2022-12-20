@@ -17,7 +17,11 @@ app.use(express.json());
 app.use(cors());
 app.use(bodyparser.json());
 
-app.use(swaggerUi.serve, swaggerUi.setup(swaggerOption))
+const options = {
+  customCss: '.swagger-ui .topbar { display: none }'
+}
+app.use(swaggerUi.serve, swaggerUi.setup(swaggerOption, options))
+
 
 app.get("/pokemon", async (req, res) => {
   const response = await GetPokemonsService();
