@@ -1,4 +1,4 @@
-{
+export const swaggerOption = { 
     "openapi" : "3.0.0",
     "info":{
         "title" : "PokéAPI",
@@ -116,4 +116,4 @@
             }
         }
     }
-}
+  }
