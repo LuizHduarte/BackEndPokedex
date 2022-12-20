@@ -8,14 +8,14 @@ import swaggerUi from 'swagger-ui-express';
 import {GetPokemonByIdService, GetPokemonsService, AddPokemonService, UpdatePokemonService, GetAllPokemonsByTypeService} from './Pokedex.Backend.Application/PokemonService.js'
 import Pokemon from './Pokedex.Backend.Domain/Pokemon.js'
 import { AddTypeService } from "./Pokedex.Backend.Application/TypeService.js";
-import swaggerDocs from './swagger.json' assert {type : "json"}
+//import swaggerDocs from './swagger.json' assert {type : "json"}
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(bodyparser.json());
 
-app.use(swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+app.use(swaggerUi.serve, swaggerUi.setup())
 
 app.get("/pokemon", async (req, res) => {
   const response = await GetPokemonsService();
