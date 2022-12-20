@@ -66,6 +66,7 @@ export async function AddPokemonService(pokemon){
     }
 
     const verifyExistingType = await VerifyExistingType(pokemon.type, pokemon.typetwo)
+    
     if(verifyExistingType.status === 400){
         return{
             status : verifyExistingType.status,
@@ -135,7 +136,9 @@ export async function UpdatePokemonService(pokemon){
 async function VerifyExistingType(typeOne, typeTwo){
 
     const typeOneSearch = await TypeOneSearchRepository(typeOne);
+    console.log(typeTwo)
     const typeTwoSearch = await TypeTwoSearchRepository(typeTwo);
+    console.log(typeTwoSearch)
 
     if(Object.keys(typeOneSearch).length === 0){
         return{

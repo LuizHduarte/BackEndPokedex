@@ -3,19 +3,19 @@ import cors from "cors";
 import bodyparser from "body-parser";
 import {port} from "./config.js";
 
+import swaggerUi from 'swagger-ui-express';
+
 import {GetPokemonByIdService, GetPokemonsService, AddPokemonService, UpdatePokemonService, GetAllPokemonsByTypeService} from './Pokedex.Backend.Application/PokemonService.js'
 import Pokemon from './Pokedex.Backend.Domain/Pokemon.js'
 import { AddTypeService } from "./Pokedex.Backend.Application/TypeService.js";
-
+import swaggerDocs from './swagger.json' assert {type : "json"}
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(bodyparser.json());
 
-app.get("/", async (req, res) => {
-  res.status(200).send("ok");
-});
+app.use(swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 app.get("/pokemon", async (req, res) => {
   const response = await GetPokemonsService();
@@ -41,6 +41,7 @@ app.post("/pokemon", async (req, res) => {
     req.body.typetwo,
   );
   const response = await AddPokemonService(pokemon);
+  console.log(response)
   
   res.status(response.status).send(response.data);
 });
